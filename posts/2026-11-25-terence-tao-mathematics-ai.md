@@ -19,12 +19,8 @@ summary_es: Notas en curso sobre la conferencia pública del ICM 2026 y ensayo d
 
 Terence Tao's ICM 2026 public lecture and companion essay ([arXiv:2608.16753](https://arxiv.org/abs/2608.16753)) steps past the usual hype about what AI can or cannot prove, and asks a deeper question that resonates strongly in chemistry and materials science as well: what are the real goals and values of scientific research when problem-solving becomes abundant?
 
-### Key verified ideas from Tao's essay
+### Key ideas from Tao's essay
 
 - **The research pipeline goes far beyond solving a problem:** Tao breaks research into five stages: generating a proof, verifying it, clear exposition, community acceptance, and canonicalization into textbooks and shared theory. AI accelerates the first two stages, while the latter three remain fundamentally human.
 - **The risk of "proof indigestion":** When automated tools produce valid but opaque outputs faster than humans can audit or digest them, peer review and genuine scientific understanding come under strain.
 - **Culture, credit, and transparency:** Tao argues for valuing synthesis, refereeing, exposition, human intellectual responsibility, and open disclosure of AI assistance.
-
-### My notes (editable from `posts/2026-11-25-terence-tao-mathematics-ai.md`)
-
-Add your own reflections, quotes, or connections to solid-state chemistry and AI-assisted research right here in Markdown, then run `python build_posts.py` on your computer to update the site automatically.

@@ -780,10 +780,10 @@ window.SITE_DATA = {
             text: "3D molecular rendering, everyday solid-state chemistry outreach, and scientific consulting for university journalism."
           }
         ],
-        personalSlot: "Personal hobbies and non-scientific interests can be added directly here once you share what you would like to highlight."
+        personalSlot: ""
       },
       future: {
-        kicker: "Future Horizon & Group Scalability",
+        kicker: "Future Horizon",
         title: "Building an independent materials research program",
         quote: "My long-term goal is to build an independent research program that bridges fundamental dynamic materials chemistry with applied challenges in energy storage and conversion, environmental remediation, and biomedical applications.",
         pillars: [
@@ -796,8 +796,8 @@ window.SITE_DATA = {
             text: "Pairing precision synthesis and solid-state spectroscopy with reproducible Python pipelines, DFT modeling, and agentic research tools."
           },
           {
-            title: "Ready to Grow into a Group",
-            text: "Today this site represents my individual trajectory; flipping one switch in site-data.js activates the People and Open Positions modules for a future lab."
+            title: "Mentorship & Collaboration",
+            text: "Open to collaborations across organic synthesis, crystallography, solid-state NMR, photophysics, and computational materials chemistry."
           }
         ]
       },
@@ -967,10 +967,10 @@ window.SITE_DATA = {
             text: "Visualización 3D de moléculas, divulgación cotidiana de química del estado sólido y asesoría para periodismo universitario."
           }
         ],
-        personalSlot: "Este espacio está listo para sumar tus pasatiempos e intereses personales fuera de la ciencia cuando me indiques cuáles deseas incluir."
+        personalSlot: ""
       },
       future: {
-        kicker: "Horizonte y Escalabilidad a Grupo",
+        kicker: "Horizonte",
         title: "Construir un programa independiente de química de materiales",
         quote: "Mi meta a largo plazo es desarrollar un programa de investigación independiente que conecte la química fundamental de materiales dinámicos con retos aplicados en almacenamiento y conversión de energía, remediación ambiental y aplicaciones biomédicas.",
         pillars: [
@@ -983,8 +983,8 @@ window.SITE_DATA = {
             text: "Unir síntesis de precisión y espectroscopía de estado sólido con flujos reproducibles en Python, modelado DFT y herramientas agénticas."
           },
           {
-            title: "Listo para Crecer a Grupo",
-            text: "Hoy el sitio representa tu perfil individual; al cambiar un solo parámetro en site-data.js se activan Integrantes y Convocatorias para un futuro laboratorio."
+            title: "Mentoría y Colaboración",
+            text: "Abierto a colaboraciones en síntesis orgánica, cristalografía, RMN de estado sólido, fotofísica y química computacional de materiales."
           }
         ]
       },
