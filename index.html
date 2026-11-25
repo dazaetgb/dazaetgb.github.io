@@ -11,8 +11,10 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050608'/%3E%3Cpolygon points='32,8 50,24 50,40 32,56 14,40 14,24' fill='none' stroke='%2348cae4' stroke-width='3'/%3E%3Cpolygon points='32,18 42,32 32,46 22,32' fill='%23e5a93c'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;600&family=Syne:wght@700&display=swap"></noscript>
   <link rel="stylesheet" href="assets/css/styles.css">
+  <style>body{background:#050608;color:#f2f4f7;margin:0;}</style>
 </head>
 <body>
 
@@ -284,7 +286,7 @@
         const cover = D.publications.find((p) => p.number === 10);
         document.getElementById("poster-showcase").innerHTML = `
           <button type="button" class="poster-frame" data-zoom="${cover.id}">
-            <img src="${cover.image}" alt="ChemPhotoChem Front Cover">
+            <img src="${cover.image}" alt="ChemPhotoChem Front Cover" width="320" height="400" decoding="async" loading="lazy">
             <div class="poster-cap">#10 - ${U.escapeHtml(t.publications.cover)} - ${U.escapeHtml(cover.journal)} (2026)</div>
           </button>
           <div style="min-width:0;">
@@ -292,7 +294,7 @@
             <div class="filmstrip-wrap">
               ${D.publications.map((p) => `
                 <button type="button" class="film-tile" data-zoom="${p.id}">
-                  <img src="${p.image}" alt="GA #${p.number}" loading="lazy">
+                  <img src="${p.thumb || p.image}" alt="GA #${p.number}" width="240" height="145" loading="lazy" decoding="async">
                   <div class="ft-num">#${String(p.number).padStart(2, "0")} - ${p.year}</div>
                   <p class="ft-j">${U.escapeHtml(p.journal)}</p>
                 </button>`).join("")}
@@ -393,8 +395,9 @@
                 <span class="acc-plus">${isOpen ? "-" : "+"}</span>
               </button>
               <div class="acc-panel">
+                ${isOpen ? `
                 <button type="button" class="acc-panel-fig" data-zoom="${p.id}" aria-label="${U.escapeHtml(t.zoomFig)}">
-                  <img src="${p.image}" alt="Graphical abstract #${p.number}" loading="lazy">
+                  <img src="${p.thumb || p.image}" alt="Graphical abstract #${p.number}" width="244" height="150" loading="lazy" decoding="async">
                 </button>
                 <div>
                   <p style="margin:0 0 12px;font-size:14.5px;line-height:1.58;">${U.escapeHtml(p.summary[L])}</p>
@@ -405,7 +408,7 @@
                     <a class="acc-btn active" style="text-decoration:none;" href="https://doi.org/${encodeURIComponent(p.doi)}" target="_blank" rel="noopener noreferrer">DOI: ${U.escapeHtml(p.doi)}</a>
                     <button type="button" class="acc-btn" data-zoom="${p.id}">${U.escapeHtml(t.zoomFig)}</button>
                   </div>
-                </div>
+                </div>` : ""}
               </div>
             </div>`;
         }).join("");
