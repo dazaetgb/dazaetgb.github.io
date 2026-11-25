@@ -73,6 +73,7 @@ a { color: inherit; }
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
   padding: 14px 28px;
   background: rgba(5, 6, 8, 0.82);
   backdrop-filter: blur(12px);
@@ -86,8 +87,9 @@ a { color: inherit; }
   text-transform: uppercase;
   text-decoration: none;
   color: #ffffff;
+  min-width: 0;
 }
-.ex-controls { display: flex; gap: 10px; align-items: center; }
+.ex-controls { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
 .ex-pill {
   border: 1px solid rgba(255,255,255,0.34);
   background: transparent;
@@ -98,6 +100,7 @@ a { color: inherit; }
   cursor: pointer;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .ex-pill:hover { border-color: var(--amber); color: var(--amber); }
 
@@ -109,7 +112,10 @@ a { color: inherit; }
   display: none;
   flex-direction: column;
   justify-content: space-between;
+  gap: 24px;
   padding: 36px clamp(24px, 6vw, 84px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .overlay-index.open { display: flex; }
 .ov-list {
@@ -466,6 +472,27 @@ a { color: inherit; }
 .c-name { font-weight: 600; font-size: 14.5px; margin: 0 0 2px; }
 .c-sub { font-size: 13px; color: var(--ink-muted); margin: 0; }
 
+.rd-card {
+  border: 1px solid var(--line-dark);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 26px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.rd-card h3 {
+  font-family: var(--display);
+  font-size: 1.65rem;
+  margin: 0 0 8px;
+  line-height: 1.18;
+}
+.rd-card code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.rd-card ul { padding-left: 20px; }
+
 .ex-footer {
   background: #050608;
   color: var(--ink-light-2);
@@ -481,4 +508,62 @@ a { color: inherit; }
   .acc-journal { display: none; }
   .acc-journal-mobile { display: block; }
   .acc-panel { padding-left: 12px; }
+}
+
+@media (max-width: 600px) {
+  .ex-bar { padding: 12px 16px; gap: 8px; }
+  .ex-brand { font-size: 0.88rem; letter-spacing: 0.02em; line-height: 1.15; }
+  .ex-controls { gap: 6px; }
+  .ex-pill { padding: 6px 10px; font-size: 11px; }
+
+  .overlay-index { padding: 20px 18px 28px; }
+  .ov-list { gap: 10px; }
+  .ov-list a { font-size: clamp(1.35rem, 6vw, 1.85rem); gap: 12px; line-height: 1.18; }
+
+  .pom-room { min-height: 520px; }
+  .pom-hud { padding: 20px 16px 22px; gap: 16px; }
+  .pom-top { font-size: 10.5px; gap: 6px; }
+  .pom-center { margin-block: 8px; padding: 14px 12px; }
+  .pom-h1 { font-size: clamp(2.05rem, 9vw, 2.65rem); line-height: 0.98; margin-bottom: 12px; }
+  .pom-sub { font-size: 0.96rem; line-height: 1.5; margin-bottom: 14px; }
+  .pom-stage-bar {
+    padding: 12px;
+    gap: 10px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .pom-stage-bar > div { width: 100%; }
+  .pom-btn { font-size: 11px; padding: 10px 12px; flex: 1 1 auto; text-align: center; }
+  .pom-stage-bar label { width: 100%; justify-content: space-between; flex-wrap: wrap; }
+  .pom-stage-bar input[type="range"] { flex: 1 1 140px; min-width: 120px; }
+
+  .room-white, .room-dark { padding: 52px 16px; }
+  .room-lead { margin-bottom: 28px; font-size: 0.98rem; }
+
+  .poster-showcase { gap: 24px; margin-bottom: 36px; }
+  .poster-frame { padding: 14px; }
+  .poster-frame img { height: auto; max-height: 300px; }
+  .film-tile { flex: 0 0 225px; }
+
+  .acc-trigger {
+    grid-template-columns: 36px minmax(0, 1fr) 24px;
+    gap: 10px;
+    padding: 14px 6px 14px 8px;
+  }
+  .acc-num { font-size: 12.5px; }
+  .acc-title { font-size: 0.96rem; }
+  .acc-authors { font-size: 12.5px; }
+  .acc-panel { padding: 4px 10px 18px 10px; gap: 14px; }
+  .acc-btn {
+    font-size: 11px;
+    padding: 7px 10px;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    text-align: left;
+  }
+
+  .credit-list li { grid-template-columns: 1fr; gap: 3px; }
+  .rd-card { padding: 18px 16px; }
+  .rd-card h3 { font-size: 1.32rem; }
+  .ex-footer { padding: 22px 16px; font-size: 11px; }
 }

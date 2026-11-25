@@ -185,6 +185,7 @@
           jump: "Heat Stage -> Trigger Salient Jump",
           reset: "Cool & Reset",
           hint: "Move pointer to rotate polarizer - click stage to jump",
+          hintTouch: "Use analyzer slider or tap button to trigger jump",
           rooms: [
             ["I", "#room-stage", "Polarized Hot Stage"],
             ["II", "#room-works", "14 Published Works & Cover"],
@@ -226,6 +227,7 @@
           jump: "Calentar Platina -> Disparar Salto",
           reset: "Enfriar y Reiniciar",
           hint: "Mueve el cursor para girar el polarizador - haz clic para saltar",
+          hintTouch: "Desliza el analizador o toca el botón para disparar el salto",
           rooms: [
             ["I", "#room-stage", "Platina Polarizada"],
             ["II", "#room-works", "14 Artículos y Portada"],
@@ -278,7 +280,8 @@
         document.getElementById("pom-affil").textContent = t.hero.affiliation;
         document.getElementById("btn-jump").textContent = ex.jump;
         document.getElementById("btn-reset").textContent = ex.reset;
-        document.getElementById("pom-hint").textContent = ex.hint;
+        const isTouch = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        document.getElementById("pom-hint").textContent = isTouch ? ex.hintTouch : ex.hint;
 
         // Room II: Poster Showcase + Filmstrip
         document.getElementById("w-title").textContent = ex.wTitle;
@@ -342,12 +345,12 @@
           ? "Talks, essays, and books I am exploring right now. Write any new note as Markdown in posts/ and run `python build_posts.py` from your computer."
           : "Conferencias, ensayos y libros que estoy explorando actualmente. Escribe cualquier nota en Markdown dentro de posts/ y ejecuta `python build_posts.py` desde tu computadora.";
         document.getElementById("rd-feed").innerHTML = posts.map((post) => `
-          <article style="border:1px solid var(--line-dark);background:rgba(255,255,255,0.03);padding:26px;">
+          <article class="rd-card">
             <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--amber);margin-bottom:10px;">
               <span>${U.escapeHtml(post.date)} - ${U.escapeHtml(post.status[L])}</span>
               <span>${U.escapeHtml(post.type[L])}</span>
             </div>
-            <h3 style="font-family:var(--display);font-size:1.65rem;margin:0 0 8px;">${U.escapeHtml(post.title[L])}</h3>
+            <h3>${U.escapeHtml(post.title[L])}</h3>
             <p style="font-family:var(--mono);font-size:12px;color:var(--cyan);margin:0 0 14px;">
               ${U.escapeHtml(post.sourceAuthor)} - ${U.escapeHtml(post.sourceVenue)}
               ${post.sourceUrl ? ` - <a href="${post.sourceUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--amber);">Open source -></a>` : ""}
@@ -418,9 +421,17 @@
         state.lang = state.lang === "en" ? "es" : "en"; U.saveLang(state.lang); render();
       });
       const ov = document.getElementById("overlay-index");
-      document.getElementById("index-open").addEventListener("click", () => ov.classList.add("open"));
-      document.getElementById("index-close").addEventListener("click", () => ov.classList.remove("open"));
-      ov.addEventListener("click", (e) => { if (e.target.closest("a")) ov.classList.remove("open"); });
+      function closeOverlay() {
+        ov.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      document.getElementById("index-open").addEventListener("click", () => {
+        ov.classList.add("open");
+        document.body.style.overflow = "hidden";
+      });
+      document.getElementById("index-close").addEventListener("click", closeOverlay);
+      ov.addEventListener("click", (e) => { if (e.target.closest("a")) closeOverlay(); });
+      window.addEventListener("keydown", (e) => { if (e.key === "Escape" && ov.classList.contains("open")) closeOverlay(); });
 
       document.getElementById("btn-jump").addEventListener("click", () => pom.triggerJump());
       document.getElementById("btn-reset").addEventListener("click", () => pom.reset());

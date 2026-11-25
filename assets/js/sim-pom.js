@@ -62,6 +62,7 @@
     function resize() {
       const r = canvas.getBoundingClientRect();
       if (!r.width || !r.height) return;
+      const widthChanged = Math.abs(r.width - width) > 4;
       width = r.width;
       height = r.height;
       const cap = width < 640 ? 1.5 : 2;
@@ -77,7 +78,7 @@
       bgGrad.addColorStop(1, "#020305");
 
       if (!crystals.length) seedCrystals();
-      else resetPositions();
+      else if (widthChanged) resetPositions();
     }
 
     function triggerJump(ox, oy) {
