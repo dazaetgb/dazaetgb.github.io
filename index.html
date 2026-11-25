@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dazaet Galicia-Badillo - Dynamic Crystals &amp; Materials Chemistry</title>
+  <meta name="description" content="Personal website of Dr. Dazaet Galicia-Badillo (Ph.D. Chemical Sciences, UNAM). Dynamic organic crystals, amphidynamic MOFs, solid-state NMR, photophysics, publications, and reading notes.">
+  <meta property="og:title" content="Dazaet Galicia-Badillo - Crystals in Motion">
+  <meta property="og:description" content="Dynamic organic crystals, amphidynamic MOFs, solid-state NMR, photophysics, 14 peer-reviewed publications with Graphical Abstracts, and reading notes.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23050608'/%3E%3Cpolygon points='32,8 50,24 50,40 32,56 14,40 14,24' fill='none' stroke='%2348cae4' stroke-width='3'/%3E%3Cpolygon points='32,18 42,32 32,46 22,32' fill='%23e5a93c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <header class="ex-bar" id="top">
+    <a class="ex-brand" href="#top">Dazaet Galicia-Badillo</a>
+    <div class="ex-controls">
+      <button type="button" class="ex-pill" id="lang-btn">ES</button>
+      <button type="button" class="ex-pill" id="index-open">Index [+]</button>
+    </div>
+  </header>
+
+  <!-- FULL-SCREEN EXHIBITION INDEX OVERLAY -->
+  <div class="overlay-index" id="overlay-index" role="dialog" aria-modal="true" aria-label="Exhibition index">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:var(--mono);font-size:12px;color:var(--amber);">EXHIBITION FLOOR PLAN</span>
+      <button type="button" class="ex-pill" id="index-close">Close [X]</button>
+    </div>
+    <ul class="ov-list" id="ov-list"></ul>
+    <div style="font-family:var(--mono);font-size:12px;color:var(--ink-light-2);display:flex;flex-wrap:wrap;gap:16px;">
+      <span>ORCID 0000-0002-0705-6045</span>
+      <span>@dazaetgb</span>
+      <span>Mexico City</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- ROOM I: INTERACTIVE POLARIZED LIGHT MICROSCOPY & JUMPING CRYSTALS -->
+    <section class="pom-room" id="room-stage">
+      <div class="pom-canvas-wrap">
+        <canvas id="pom-canvas" aria-label="Interactive polarized optical microscopy stage with jumping organic crystals"></canvas>
+      </div>
+      <div class="pom-hud">
+        <div class="pom-top">
+          <span id="pom-kicker"></span>
+          <span id="pom-readout">POLARIZER: 28 DEG | STAGE: 298 K</span>
+        </div>
+        <div class="pom-center">
+          <h1 class="pom-h1" id="pom-h1"></h1>
+          <p class="pom-sub" id="pom-sub"></p>
+          <p style="font-family:var(--mono);font-size:12px;color:var(--amber);margin:0;" id="pom-affil"></p>
+        </div>
+        <div class="pom-stage-bar">
+          <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+            <button type="button" class="pom-btn" id="btn-jump"></button>
+            <button type="button" class="pom-btn ghost" id="btn-reset"></button>
+          </div>
+          <label style="font-family:var(--mono);font-size:11.5px;color:#d5dce6;display:flex;align-items:center;gap:10px;">
+            <span id="pol-lbl">Analyzer (0-90 deg)</span>
+            <input type="range" id="pol-slider" min="0" max="90" value="28" style="accent-color:var(--cyan);cursor:pointer;">
+          </label>
+          <span style="font-family:var(--mono);font-size:11px;color:var(--cyan);" id="pom-hint"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROOM II: EXHIBITION OF 14 PUBLISHED WORKS (STARK WHITE MUSEUM WALL) -->
+    <section class="room-white" id="room-works">
+      <div class="inner">
+        <p class="room-num">ROOM II - PUBLISHED ARCHIVE (14 TO 01)</p>
+        <h2 class="room-h2" id="w-title"></h2>
+        <p class="room-lead" id="w-lead"></p>
+
+        <div class="poster-showcase" id="poster-showcase"></div>
+
+        <div class="acc-toolbar">
+          <div style="display:flex;flex-wrap:wrap;gap:6px;" id="w-cats"></div>
+          <label style="font-family:var(--mono);font-size:12px;display:inline-flex;gap:6px;align-items:center;cursor:pointer;">
+            <input type="checkbox" id="w-first"><span id="w-first-lbl"></span>
+          </label>
+        </div>
+        <div class="acc-list" id="acc-list"></div>
+      </div>
+    </section>
+
+    <!-- ROOM III: 3-AXIS CONCEPTUAL RESEARCH MAP (DARKROOM) -->
+    <section class="room-dark" id="room-axes">
+      <div class="inner">
+        <p class="room-num">ROOM III - CONCEPTUAL FRAMEWORK</p>
+        <h2 class="room-h2" id="ax-title"></h2>
+        <p class="room-lead" id="ax-lead"></p>
+        <div class="axis-grid" id="axis-grid"></div>
+      </div>
+    </section>
+
+    <!-- ROOM IV: EXHIBITION CREDITS - MENTORSHIP, AWARDS & OUTREACH (WHITE WALL) -->
+    <section class="room-white" id="room-credits">
+      <div class="inner">
+        <p class="room-num">ROOM IV - PEOPLE, HONORS &amp; PUBLIC SCIENCE</p>
+        <h2 class="room-h2" id="cr-title"></h2>
+        <p class="room-lead" id="cr-lead"></p>
+        <div class="credits-grid" style="margin-bottom:52px;">
+          <div>
+            <h3 class="credit-head" id="cr-theses-h"></h3>
+            <ul class="credit-list" id="cr-theses"></ul>
+            <h3 class="credit-head" style="margin-top:34px;" id="cr-out-h"></h3>
+            <ul class="credit-list" id="cr-out"></ul>
+          </div>
+          <div>
+            <h3 class="credit-head" id="cr-stays-h"></h3>
+            <ul class="credit-list" id="cr-stays"></ul>
+          </div>
+        </div>
+        <h3 class="credit-head" id="cr-awards-h"></h3>
+        <ul class="credit-list" id="cr-awards"></ul>
+      </div>
+    </section>
+
+    <!-- ROOM V: READING ROOM & NOTES (DARKROOM / SALON) -->
+    <section class="room-dark" id="room-reading">
+      <div class="inner">
+        <p class="room-num">ROOM V - READING ROOM &amp; NOTES</p>
+        <h2 class="room-h2" id="rd-title"></h2>
+        <p class="room-lead" id="rd-lead"></p>
+        <div id="rd-feed" style="display:grid;gap:22px;"></div>
+      </div>
+    </section>
+
+    <!-- ROOM VI: HORIZON, FUTURE GROUP & CONTACT (WHITE WALL) -->
+    <section class="room-white" id="room-horizon">
+      <div class="inner">
+        <p class="room-num">ROOM VI - HORIZON &amp; DIALOGUE</p>
+        <h2 class="room-h2" id="hz-title"></h2>
+        <blockquote style="font-family:var(--display);font-size:clamp(1.4rem,2.5vw,2.1rem);line-height:1.3;margin:0 0 32px;padding-left:22px;border-left:3px solid #a35a0b;" id="hz-quote"></blockquote>
+        <div class="credits-grid" style="align-items:start;">
+          <div>
+            <p style="color:var(--ink-muted);margin:0 0 18px;" id="hz-bio"></p>
+            <p style="font-family:var(--mono);font-size:12px;color:#a35a0b;margin:0;" id="hz-group-note"></p>
+          </div>
+          <div style="border:1px solid var(--line-light);padding:24px;background:var(--wall-soft);">
+            <p style="font-family:var(--mono);font-size:11.5px;color:#a35a0b;margin:0 0 12px;">DIRECT CONTACT &amp; PROFILES</p>
+            <div style="display:flex;flex-wrap:wrap;gap:10px;" id="hz-links"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="ex-footer">
+    <div class="inner">
+      <span>Crystals in Motion - Materials &amp; Solid-State Chemistry</span>
+      <span>Dr. Dazaet Galicia-Badillo - ORCID 0000-0002-0705-6045</span>
+    </div>
+  </footer>
+
+  <script src="data/site-data.js"></script>
+  <script src="data/blog-data.js"></script>
+  <script src="assets/js/shared-ui.js"></script>
+  <script src="assets/js/sim-pom.js"></script>
+  <script>
+    (function () {
+      const D = window.SITE_DATA;
+      const U = window.SiteUtils;
+      const lightbox = U.createLightbox();
+      const state = { lang: U.getInitialLang(), category: "all", firstOnly: false, openId: "mcf-2026" };
+
+      const pom = window.PomStage.create(document.getElementById("pom-canvas"), {
+        onReadout(deg, T) {
+          const el = document.getElementById("pom-readout");
+          if (el) el.textContent = `POLARIZER: ${deg} DEG | HOT STAGE: ${T} K`;
+        }
+      });
+
+      const EX = {
+        en: {
+          kicker: "EXHIBITION I - CROSS-POLARIZED HOT STAGE",
+          h1: "Crystals That Bend, Glow & Leap.",
+          sub: "Dazaet Galicia-Badillo - Ph.D. in Chemical Sciences (Honors, UNAM). Exploring how molecular motion inside organic crystals and metal-organic frameworks manifests as macroscopic mechanical and optical phenomena.",
+          jump: "Heat Stage -> Trigger Salient Jump",
+          reset: "Cool & Reset",
+          hint: "Move pointer to rotate polarizer - click stage to jump",
+          rooms: [
+            ["I", "#room-stage", "Polarized Hot Stage"],
+            ["II", "#room-works", "14 Published Works & Cover"],
+            ["III", "#room-axes", "3-Axis Research Map"],
+            ["IV", "#room-credits", "Mentored People & Awards"],
+            ["V", "#room-reading", "Reading Room & Blog"],
+            ["VI", "#room-horizon", "Future Program & Contact"]
+          ],
+          wTitle: "Exhibition of 14 Published Works",
+          wLead: "Scroll the filmstrip or click any numbered entry (14 to 01) below to inspect its full Graphical Abstract, summary, and verified DOI.",
+          axesTitle: "Three Axes of Dynamic Solids",
+          axesLead: "Rather than isolated niches, my research operates across three coupled axes: internal molecular freedom, external stimuli, and emergent macroscopic behavior.",
+          axes: [
+            {
+              step: "AXIS 01 - STRUCTURE & MOTION",
+              title: "Porous Frameworks & Internal Rotors",
+              desc: "Designing rigid crystalline scaffolds with engineered free volume so molecular subunits rotate, oscillate, or flip cleanly in the solid state.",
+              bullets: ["Amphidynamic & multivariate Zr-MOFs", "Phenylene, carbazole & pyrrolopyrrole rotors", "Host-guest modulation (fluorinated guests, solvates)", "2H & 13C variable-temperature solid-state NMR"]
+            },
+            {
+              step: "AXIS 02 - STIMULI & PHOTOPHYSICS",
+              title: "Light, Heat & Chemical Triggers",
+              desc: "Coupling external energy inputs with molecular conformation, excited-state proton transfer, and anisotropic lattice expansion.",
+              bullets: ["UV-gated azobenzene & salicylidene photoswitches", "Aggregation-induced emission (AIE/AIEE) & ESIPT", "Optical writing & solid-state data encryption", "Colossal anisotropic thermal expansion & DSC/VT-XRD"]
+            },
+            {
+              step: "AXIS 03 - EMERGENT FUNCTION",
+              title: "Macroscopic Mechanics & Future Applications",
+              desc: "Translating microscopic motion into visible mechanical work, adaptive optics, and applied materials chemistry.",
+              bullets: ["Elasto-plastic bendable organic crystals", "Thermosalient jumping actuators & cocrystal rockets", "Energy storage, environmental remediation & biomedicine", "DFT modeling & AI-assisted research automation"]
+            }
+          ],
+          groupNote: "Scalable architecture: ready to expand from an individual exhibition into a full research group site by switching config.mode = 'group' in data/site-data.js."
+        },
+        es: {
+          kicker: "SALA I - PLATINA CALIENTE CON LUZ POLARIZADA",
+          h1: "Cristales Que Se Doblan, Brillan y Saltan.",
+          sub: "Dazaet Galicia-Badillo - Doctor en Ciencias Químicas (Mención Honorífica, UNAM). Investigando cómo el movimiento molecular en cristales orgánicos y MOFs se manifiesta en fenómenos mecánicos y ópticos macroscópicos.",
+          jump: "Calentar Platina -> Disparar Salto",
+          reset: "Enfriar y Reiniciar",
+          hint: "Mueve el cursor para girar el polarizador - haz clic para saltar",
+          rooms: [
+            ["I", "#room-stage", "Platina Polarizada"],
+            ["II", "#room-works", "14 Artículos y Portada"],
+            ["III", "#room-axes", "Mapa en 3 Ejes"],
+            ["IV", "#room-credits", "Personas Mentoradas y Premios"],
+            ["V", "#room-reading", "Sala de Lectura y Blog"],
+            ["VI", "#room-horizon", "Futuro y Contacto"]
+          ],
+          wTitle: "Exhibición de 14 Trabajos Publicados",
+          wLead: "Desliza la galería horizontal o haz clic en cualquier entrada numerada (14 a 01) para desplegar su Graphical Abstract completo, resumen y DOI verificado.",
+          axesTitle: "Tres Ejes de los Sólidos Dinámicos",
+          axesLead: "Más que líneas aisladas, mi investigación conecta tres ejes acoplados: libertad molecular interna, estímulos externos y respuestas macroscópicas emergentes.",
+          axes: [
+            {
+              step: "EJE 01 - ESTRUCTURA Y MOVIMIENTO",
+              title: "Redes Porosas y Rotores Internos",
+              desc: "Diseño de andamios cristalinos rígidos con volumen libre controlado para que subunidades moleculares giren u oscilen en estado sólido.",
+              bullets: ["MOFs de circonio anfidinámicos y multivariados", "Rotores de fenileno, carbazol y pirrolopirrol", "Modulación huésped-anfitrión (huéspedes fluorados, solvatos)", "RMN de estado sólido 2H y 13C a temperatura variable"]
+            },
+            {
+              step: "EJE 02 - ESTÍMULOS Y FOTOFÍSICA",
+              title: "Luz, Calor y Disparadores Químicos",
+              desc: "Acoplamiento de estímulos externos con cambios conformacionales, transferencia protónica en estado excitado y expansión anisótropa.",
+              bullets: ["Fotointerruptores UV de azobenceno y salicilideno", "Emisión inducida por agregación (AIE/AIEE) y ESIPT", "Escritura óptica y cifrado de datos en estado sólido", "Expansión térmica colosal anisótropa y DSC/DRX-VT"]
+            },
+            {
+              step: "EJE 03 - FUNCIÓN EMERGENTE",
+              title: "Mecánica Macroscópica y Horizonte Aplicado",
+              desc: "Traducir el movimiento microscópico en trabajo mecánico visible, óptica adaptable y química de materiales aplicada.",
+              bullets: ["Cristales orgánicos flexibles elasto-plásticos", "Actuadores termosalientes y cocristales propulsados", "Energía, remediación ambiental y aplicaciones biomédicas", "Modelado DFT y automatización científica con IA"]
+            }
+          ],
+          groupNote: "Arquitectura escalable: preparada para ampliarse a página de grupo de investigación cambiando config.mode = 'group' en data/site-data.js."
+        }
+      };
+
+      function render() {
+        const L = state.lang;
+        const ex = EX[L];
+        const t = D.ui[L];
+        document.documentElement.lang = L;
+        document.getElementById("lang-btn").textContent = L === "en" ? "ES" : "EN";
+
+        document.getElementById("ov-list").innerHTML = ex.rooms.map(([n, href, lbl]) => `
+          <li><a href="${href}"><span>${n}</span>${U.escapeHtml(lbl)}</a></li>`).join("");
+
+        document.getElementById("pom-kicker").textContent = ex.kicker;
+        document.getElementById("pom-h1").textContent = ex.h1;
+        document.getElementById("pom-sub").textContent = ex.sub;
+        document.getElementById("pom-affil").textContent = t.hero.affiliation;
+        document.getElementById("btn-jump").textContent = ex.jump;
+        document.getElementById("btn-reset").textContent = ex.reset;
+        document.getElementById("pom-hint").textContent = ex.hint;
+
+        // Room II: Poster Showcase + Filmstrip
+        document.getElementById("w-title").textContent = ex.wTitle;
+        document.getElementById("w-lead").textContent = ex.wLead;
+        const cover = D.publications.find((p) => p.number === 10);
+        document.getElementById("poster-showcase").innerHTML = `
+          <button type="button" class="poster-frame" data-zoom="${cover.id}">
+            <img src="${cover.image}" alt="ChemPhotoChem Front Cover">
+            <div class="poster-cap">#10 - ${U.escapeHtml(t.publications.cover)} - ${U.escapeHtml(cover.journal)} (2026)</div>
+          </button>
+          <div style="min-width:0;">
+            <p style="font-family:var(--mono);font-size:11.5px;color:#a35a0b;margin:0 0 12px;">GRAPHICAL ABSTRACT FILMSTRIP (SCROLL HORIZONTALLY ->)</p>
+            <div class="filmstrip-wrap">
+              ${D.publications.map((p) => `
+                <button type="button" class="film-tile" data-zoom="${p.id}">
+                  <img src="${p.image}" alt="GA #${p.number}" loading="lazy">
+                  <div class="ft-num">#${String(p.number).padStart(2, "0")} - ${p.year}</div>
+                  <p class="ft-j">${U.escapeHtml(p.journal)}</p>
+                </button>`).join("")}
+            </div>
+          </div>`;
+
+        document.getElementById("w-cats").innerHTML = t.publications.categories.map((c) => `
+          <button type="button" class="acc-btn ${c.id === state.category ? "active" : ""}" data-cat="${c.id}">${U.escapeHtml(c.label)}</button>`).join("");
+        document.getElementById("w-first").checked = state.firstOnly;
+        document.getElementById("w-first-lbl").textContent = t.publications.firstAuthorOnly;
+        renderAccordion();
+
+        // Room III: 3 Axes
+        document.getElementById("ax-title").textContent = ex.axesTitle;
+        document.getElementById("ax-lead").textContent = ex.axesLead;
+        document.getElementById("axis-grid").innerHTML = ex.axes.map((ax) => `
+          <article class="axis-col">
+            <span class="axis-step">${U.escapeHtml(ax.step)}</span>
+            <h3>${U.escapeHtml(ax.title)}</h3>
+            <p>${U.escapeHtml(ax.desc)}</p>
+            <ul>${ax.bullets.map((b) => `<li>${U.escapeHtml(b)}</li>`).join("")}</ul>
+          </article>`).join("");
+
+        // Room IV: Credits
+        document.getElementById("cr-title").textContent = t.mentorship.title;
+        document.getElementById("cr-lead").textContent = t.mentorship.intro;
+        document.getElementById("cr-theses-h").textContent = t.mentorship.thesesTitle;
+        document.getElementById("cr-stays-h").textContent = t.mentorship.staysTitle;
+        document.getElementById("cr-out-h").textContent = t.outreach.kicker;
+        document.getElementById("cr-awards-h").textContent = t.awards.kicker;
+
+        document.getElementById("cr-theses").innerHTML = D.mentorship.theses.map((s) => `
+          <li><span class="c-yr">${U.escapeHtml(s.year)}</span><div><p class="c-name">${U.escapeHtml(s.name)}</p><p class="c-sub">${U.escapeHtml(s.topic[L])}</p></div></li>`).join("");
+        document.getElementById("cr-stays").innerHTML = D.mentorship.stays.map((s) => `
+          <li><span class="c-yr">${U.escapeHtml(s.year)}</span><div><p class="c-name">${U.escapeHtml(s.name)}</p><p class="c-sub">${U.escapeHtml(s.level[L])} - ${U.escapeHtml(s.topic[L])}</p></div></li>`).join("");
+        document.getElementById("cr-out").innerHTML = t.outreach.items.map((o) => `
+          <li><span class="c-yr">${U.escapeHtml(o.year)}</span><div><p class="c-name">${U.escapeHtml(o.title)}</p><p class="c-sub">${U.escapeHtml(o.venue)} - ${U.escapeHtml(o.text)}</p></div></li>`).join("");
+        document.getElementById("cr-awards").innerHTML = D.awards.map((a) => `
+          <li><span class="c-yr">${U.escapeHtml(a.year)}</span><div><p class="c-name">${U.escapeHtml(a.title[L])} <span style="font-weight:400;color:#545a64;">- ${U.escapeHtml(a.institution[L])}</span></p><p class="c-sub">${U.escapeHtml(a.detail[L])}</p></div></li>`).join("");
+
+        // Room V: Reading Room (Blog from posts/*.md)
+        const posts = window.BLOG_POSTS || [];
+        document.getElementById("rd-title").textContent = L === "en" ? "Reading Room & Notes" : "Sala de Lectura y Notas";
+        document.getElementById("rd-lead").textContent = L === "en"
+          ? "Talks, essays, and books I am exploring right now. Write any new note as Markdown in posts/ and run `python build_posts.py` from your computer."
+          : "Conferencias, ensayos y libros que estoy explorando actualmente. Escribe cualquier nota en Markdown dentro de posts/ y ejecuta `python build_posts.py` desde tu computadora.";
+        document.getElementById("rd-feed").innerHTML = posts.map((post) => `
+          <article style="border:1px solid var(--line-dark);background:rgba(255,255,255,0.03);padding:26px;">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:11.5px;color:var(--amber);margin-bottom:10px;">
+              <span>${U.escapeHtml(post.date)} - ${U.escapeHtml(post.status[L])}</span>
+              <span>${U.escapeHtml(post.type[L])}</span>
+            </div>
+            <h3 style="font-family:var(--display);font-size:1.65rem;margin:0 0 8px;">${U.escapeHtml(post.title[L])}</h3>
+            <p style="font-family:var(--mono);font-size:12px;color:var(--cyan);margin:0 0 14px;">
+              ${U.escapeHtml(post.sourceAuthor)} - ${U.escapeHtml(post.sourceVenue)}
+              ${post.sourceUrl ? ` - <a href="${post.sourceUrl}" target="_blank" rel="noopener noreferrer" style="color:var(--amber);">Open source -></a>` : ""}
+            </p>
+            <div style="color:var(--ink-light-2);font-size:14.5px;max-width:78ch;">${post.bodyHtml}</div>
+          </article>`).join("");
+
+        // Room VI: Horizon & Contact
+        document.getElementById("hz-title").textContent = t.future.title;
+        document.getElementById("hz-quote").textContent = t.future.quote;
+        document.getElementById("hz-bio").textContent = t.about.body.join(" ");
+        document.getElementById("hz-group-note").textContent = ex.groupNote;
+        document.getElementById("hz-links").innerHTML = [
+          [D.config.email, `mailto:${D.config.email}`],
+          ["ORCID", D.config.links.orcid],
+          ["Google Scholar", D.config.links.scholar],
+          ["Instagram @dazaetgb", D.config.links.instagram],
+          ["X @dazaetgb", D.config.links.twitter],
+          ["UNAM B.S. Thesis", D.config.links.unamThesisBs]
+        ].map(([lbl, href]) => `<a class="acc-btn" style="text-decoration:none;border-color:#101216;" href="${href}" target="_blank" rel="noopener noreferrer">${U.escapeHtml(lbl)}</a>`).join("");
+      }
+
+      function renderAccordion() {
+        const L = state.lang;
+        const t = D.ui[L].publications;
+        const list = U.filterPublications(D.publications, {
+          category: state.category, firstAuthorOnly: state.firstOnly
+        }, L);
+        document.getElementById("acc-list").innerHTML = list.map((p) => {
+          const isOpen = p.id === state.openId;
+          return `
+            <div class="acc-item ${isOpen ? "open" : ""} ${p.firstAuthor ? "is-first-author" : ""}" data-acc="${p.id}">
+              <button type="button" class="acc-trigger" data-toggle="${p.id}" aria-expanded="${isOpen}">
+                <span class="acc-num">#${String(p.number).padStart(2, "0")}</span>
+                <span class="acc-main">
+                  <span class="acc-title-row">
+                    <span class="acc-title">${U.escapeHtml(p.title)}</span>
+                    ${p.firstAuthor ? `<span class="acc-badge-first">${U.escapeHtml(t.firstAuthor)}</span>` : ""}
+                    ${p.cover ? `<span class="acc-badge-cover">${U.escapeHtml(t.cover)}</span>` : ""}
+                  </span>
+                  <span class="acc-authors">${U.highlightAuthor(p.authors)}</span>
+                  <span class="acc-journal-mobile">${U.escapeHtml(p.journal)} (${U.escapeHtml(p.citation)})</span>
+                </span>
+                <span class="acc-journal">${U.escapeHtml(p.journal)}<br>${U.escapeHtml(p.citation)}</span>
+                <span class="acc-plus">${isOpen ? "-" : "+"}</span>
+              </button>
+              <div class="acc-panel">
+                <button type="button" class="acc-panel-fig" data-zoom="${p.id}" aria-label="${U.escapeHtml(t.zoomFig)}">
+                  <img src="${p.image}" alt="Graphical abstract #${p.number}" loading="lazy">
+                </button>
+                <div>
+                  <p style="margin:0 0 12px;font-size:14.5px;line-height:1.58;">${U.escapeHtml(p.summary[L])}</p>
+                  <p style="margin:0 0 12px;font-family:var(--mono);font-size:12px;color:#545a64;">
+                    <em>${U.escapeHtml(p.journal)}</em>, ${U.escapeHtml(p.citation)}
+                  </p>
+                  <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+                    <a class="acc-btn active" style="text-decoration:none;" href="https://doi.org/${encodeURIComponent(p.doi)}" target="_blank" rel="noopener noreferrer">DOI: ${U.escapeHtml(p.doi)}</a>
+                    <button type="button" class="acc-btn" data-zoom="${p.id}">${U.escapeHtml(t.zoomFig)}</button>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+        }).join("");
+      }
+
+      document.getElementById("lang-btn").addEventListener("click", () => {
+        state.lang = state.lang === "en" ? "es" : "en"; U.saveLang(state.lang); render();
+      });
+      const ov = document.getElementById("overlay-index");
+      document.getElementById("index-open").addEventListener("click", () => ov.classList.add("open"));
+      document.getElementById("index-close").addEventListener("click", () => ov.classList.remove("open"));
+      ov.addEventListener("click", (e) => { if (e.target.closest("a")) ov.classList.remove("open"); });
+
+      document.getElementById("btn-jump").addEventListener("click", () => pom.triggerJump());
+      document.getElementById("btn-reset").addEventListener("click", () => pom.reset());
+      document.getElementById("pol-slider").addEventListener("input", (e) => pom.setPolarizer(e.target.value));
+
+      document.getElementById("w-cats").addEventListener("click", (e) => {
+        const b = e.target.closest("[data-cat]");
+        if (!b) return;
+        state.category = b.getAttribute("data-cat");
+        render();
+      });
+      document.getElementById("w-first").addEventListener("change", (e) => {
+        state.firstOnly = e.target.checked;
+        renderAccordion();
+      });
+      document.getElementById("acc-list").addEventListener("click", (e) => {
+        const tgl = e.target.closest("[data-toggle]");
+        if (tgl) {
+          const id = tgl.getAttribute("data-toggle");
+          state.openId = state.openId === id ? null : id;
+          renderAccordion();
+          return;
+        }
+        const z = e.target.closest("[data-zoom]");
+        if (z) {
+          const pub = D.publications.find((p) => p.id === z.getAttribute("data-zoom"));
+          if (pub) lightbox.open(pub);
+        }
+      });
+      document.getElementById("poster-showcase").addEventListener("click", (e) => {
+        const z = e.target.closest("[data-zoom]");
+        if (z) {
+          const pub = D.publications.find((p) => p.id === z.getAttribute("data-zoom"));
+          if (pub) lightbox.open(pub);
+        }
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>

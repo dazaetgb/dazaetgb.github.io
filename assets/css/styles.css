@@ -1,0 +1,484 @@
+/* ==========================================================================
+   OPTION 2 - CRYSTALS IN MOTION: POLARIZED EXHIBITION
+   Museum exhibition architecture: alternating obsidian darkrooms and stark
+   white gallery walls, full-screen overlay index (no conventional top nav),
+   interactive Cross-Polarized Microscopy & Jumping Crystal hot stage,
+   horizontal TOC filmstrip & expandable 14-to-1 accordion catalogue.
+   ========================================================================== */
+:root {
+  --void: #050608;
+  --room-dark: #0d1015;
+  --wall: #ffffff;
+  --wall-soft: #f3f3f1;
+  --ink-dark: #101216;
+  --ink-muted: #545a64;
+  --ink-light: #f2f4f7;
+  --ink-light-2: #9ba5b4;
+  --amber: #e5a93c;
+  --cyan: #48cae4;
+  --line-dark: rgba(255, 255, 255, 0.14);
+  --line-light: #e2e2de;
+  --display: "Syne", -apple-system, BlinkMacSystemFont, sans-serif;
+  --sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--ink-light);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.62;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+
+/* Concept switcher */
+.concept-bar {
+  background: #000000;
+  color: #8f98a6;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 8px 24px;
+  border-bottom: 1px solid var(--line-dark);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.concept-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.concept-links a {
+  color: #9ba5b4;
+  text-decoration: none;
+  padding: 2px 9px;
+  border: 1px solid transparent;
+}
+.concept-links a.active {
+  color: #ffffff;
+  border-color: var(--amber);
+  background: rgba(229, 169, 60, 0.16);
+}
+
+/* Floating Museum Bar + Full-Screen Overlay Index */
+.ex-bar {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 28px;
+  background: rgba(5, 6, 8, 0.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line-dark);
+}
+.ex-brand {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #ffffff;
+}
+.ex-controls { display: flex; gap: 10px; align-items: center; }
+.ex-pill {
+  border: 1px solid rgba(255,255,255,0.34);
+  background: transparent;
+  color: #ffffff;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 6px 14px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ex-pill:hover { border-color: var(--amber); color: var(--amber); }
+
+.overlay-index {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(5, 6, 8, 0.96);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px clamp(24px, 6vw, 84px);
+}
+.overlay-index.open { display: flex; }
+.ov-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.ov-list a {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+.ov-list a span { font-family: var(--mono); font-size: 13px; color: var(--amber); }
+.ov-list a:hover { color: var(--cyan); }
+
+/* ROOM I - FULL-VIEWPORT POLARIZED MICROSCOPY STAGE */
+.pom-room {
+  position: relative;
+  min-height: clamp(580px, 84vh, 840px);
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--line-dark);
+}
+.pom-canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.pom-canvas-wrap canvas { width: 100%; height: 100%; display: block; cursor: crosshair; }
+
+.pom-hud {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 46px 28px 34px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.pom-top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--cyan);
+}
+.pom-center {
+  max-width: 680px;
+  margin-block: 42px;
+  pointer-events: auto;
+  padding: 18px 22px;
+  background: radial-gradient(ellipse at left center, rgba(5, 6, 8, 0.78) 0%, rgba(5, 6, 8, 0.45) 68%, rgba(5, 6, 8, 0) 100%);
+  text-shadow: 0 2px 18px rgba(5, 6, 8, 0.92);
+}
+.pom-h1 {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 6.4vw, 5.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.03em;
+  margin: 0 0 18px;
+  font-weight: 700;
+}
+.pom-sub {
+  font-size: 1.12rem;
+  color: #d5dce6;
+  max-width: 54ch;
+  margin: 0 0 24px;
+}
+.pom-stage-bar {
+  pointer-events: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 18px;
+  background: rgba(13, 16, 21, 0.84);
+  border: 1px solid var(--line-dark);
+  backdrop-filter: blur(10px);
+}
+.pom-btn {
+  border: 1px solid var(--amber);
+  background: var(--amber);
+  color: #090804;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.pom-btn.ghost {
+  background: transparent;
+  color: #ffffff;
+  border-color: rgba(255,255,255,0.34);
+}
+.pom-btn:hover { background: var(--cyan); border-color: var(--cyan); color: #041016; }
+
+/* MUSEUM ROOMS */
+.room-white {
+  background: var(--wall);
+  color: var(--ink-dark);
+  padding: 84px 28px;
+}
+.room-dark {
+  background: var(--room-dark);
+  color: var(--ink-light);
+  padding: 84px 28px;
+  border-block: 1px solid var(--line-dark);
+}
+.inner { max-width: 1220px; margin: 0 auto; }
+.room-num {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin: 0 0 10px;
+}
+.room-white .room-num { color: #a35a0b; }
+.room-h2 {
+  font-family: var(--display);
+  font-size: clamp(2rem, 4vw, 3.3rem);
+  line-height: 1.04;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.room-lead {
+  max-width: 64ch;
+  margin: 0 0 42px;
+  color: var(--ink-muted);
+  font-size: 1.06rem;
+}
+.room-dark .room-lead { color: var(--ink-light-2); }
+
+/* ROOM II - EXHIBITION WALL + HORIZONTAL FILMSTRIP + ACCORDION */
+.poster-showcase {
+  display: grid;
+  grid-template-columns: 360px minmax(0, 1fr);
+  gap: 36px;
+  margin-bottom: 52px;
+  align-items: center;
+}
+.poster-frame {
+  background: #0a0c10;
+  padding: 20px;
+  border: none;
+  cursor: zoom-in;
+  text-align: left;
+  color: #ffffff;
+}
+.poster-frame img { width: 100%; height: 400px; object-fit: contain; margin-bottom: 12px; }
+.poster-cap { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+
+.filmstrip-wrap {
+  overflow-x: auto;
+  padding-bottom: 14px;
+  display: flex;
+  gap: 16px;
+  scroll-snap-type: x mandatory;
+}
+.film-tile {
+  flex: 0 0 265px;
+  scroll-snap-align: start;
+  border: 1px solid var(--line-light);
+  background: var(--wall-soft);
+  padding: 12px;
+  cursor: zoom-in;
+  text-align: left;
+}
+.film-tile img {
+  width: 100%;
+  height: 145px;
+  object-fit: contain;
+  background: #ffffff;
+  padding: 6px;
+  margin-bottom: 10px;
+}
+.film-tile .ft-num { font-family: var(--mono); font-size: 11px; color: #a35a0b; font-weight: 700; }
+.film-tile .ft-j { font-size: 13px; font-weight: 600; color: var(--ink-dark); margin: 3px 0 0; }
+
+/* Accordion Catalogue 14 -> 1 */
+.acc-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.acc-btn {
+  border: 1px solid var(--line-light);
+  background: var(--wall-soft);
+  color: var(--ink-dark);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.acc-btn.active { background: var(--ink-dark); color: #ffffff; border-color: var(--ink-dark); }
+
+.acc-list { border-top: 2px solid var(--ink-dark); }
+.acc-item { border-bottom: 1px solid var(--line-light); }
+.acc-item.is-first-author {
+  border-left: 3px solid #d95f02;
+}
+.acc-trigger {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 18px 10px 18px 12px;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) 220px 34px;
+  gap: 16px;
+  align-items: start;
+  color: var(--ink-dark);
+  font-family: var(--sans);
+}
+.acc-trigger:hover { background: var(--wall-soft); }
+.acc-num {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  padding-top: 2px;
+}
+.acc-item.is-first-author .acc-num { color: #d95f02; }
+.acc-main { min-width: 0; }
+.acc-title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.acc-title { font-weight: 600; font-size: 1.03rem; line-height: 1.32; }
+.acc-badge-first {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #d95f02;
+  border: 1px solid #d95f02;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.acc-badge-cover {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #101216;
+  border: 1px solid #101216;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+.acc-authors {
+  display: block;
+  font-size: 13.5px;
+  line-height: 1.48;
+  color: var(--ink-muted);
+}
+.acc-authors strong {
+  color: #d95f02;
+  font-weight: 700;
+}
+.acc-journal {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  text-align: right;
+  padding-top: 2px;
+}
+.acc-journal-mobile {
+  display: none;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-muted);
+  margin-top: 5px;
+}
+.acc-plus { font-family: var(--mono); font-size: 18px; text-align: center; padding-top: 0; }
+.acc-panel {
+  display: none;
+  padding: 6px 16px 24px 82px;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.acc-item.open .acc-panel { display: grid; }
+.acc-panel-fig {
+  border: 1px solid var(--line-light);
+  background: #ffffff;
+  padding: 8px;
+  cursor: zoom-in;
+}
+.acc-panel-fig img { width: 100%; height: 150px; object-fit: contain; }
+
+/* ROOM III - 3-AXIS RESEARCH MAP (Structure -> Stimulus -> Function) */
+.axis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+.axis-col {
+  border-top: 2px solid var(--cyan);
+  padding-top: 22px;
+}
+.axis-col:nth-child(2) { border-top-color: var(--amber); }
+.axis-col:nth-child(3) { border-top-color: #34d399; }
+.axis-step { font-family: var(--mono); font-size: 11px; color: var(--ink-light-2); letter-spacing: 0.1em; }
+.axis-col h3 { font-family: var(--display); font-size: 1.55rem; margin: 8px 0 12px; }
+.axis-col p { color: var(--ink-light-2); font-size: 14.5px; margin: 0 0 14px; }
+.axis-col ul { margin: 0; padding-left: 18px; color: var(--ink-light); font-size: 14px; display: grid; gap: 6px; }
+
+/* ROOM IV - CREDITS: MENTORSHIP, AWARDS, OUTREACH, FUTURE */
+.credits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 44px;
+}
+.credit-head {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--ink-dark);
+  margin: 0 0 16px;
+}
+.credit-list { list-style: none; margin: 0; padding: 0; }
+.credit-list li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line-light);
+}
+.c-yr { font-family: var(--mono); font-size: 12px; color: #a35a0b; font-weight: 700; }
+.c-name { font-weight: 600; font-size: 14.5px; margin: 0 0 2px; }
+.c-sub { font-size: 13px; color: var(--ink-muted); margin: 0; }
+
+.ex-footer {
+  background: #050608;
+  color: var(--ink-light-2);
+  padding: 28px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.ex-footer .inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+
+@media (max-width: 960px) {
+  .poster-showcase, .axis-grid, .credits-grid, .acc-panel { grid-template-columns: 1fr; }
+  .acc-trigger { grid-template-columns: 44px minmax(0, 1fr) 28px; }
+  .acc-journal { display: none; }
+  .acc-journal-mobile { display: block; }
+  .acc-panel { padding-left: 12px; }
+}
